@@ -4,8 +4,12 @@ const insert = (data) => {
     return UserModel.create(data)
 }
 
+const loginUser = (loginData) => {
+    return UserModel.findOne(loginData)
+}
+
 const list = () => {
     return UserModel.find()
 }
 
-module.exports = { insert }
+module.exports = { insert, list, loginUser }

@@ -5,10 +5,12 @@ const schemas = require('../validations/users')
 const validate = require('../middlewares/validate')
 
 const router = require('express').Router()
-const { create, index } = require('../controllers/users')
+const { create, index, login } = require('../controllers/users')
 
 router.get('/', index)
 
 router.post('/', validate(schemas.createValidation), create)
+
+router.post('/login', validate(schemas.loginValidation), login)
 
 module.exports = router
