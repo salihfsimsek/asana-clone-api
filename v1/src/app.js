@@ -4,7 +4,7 @@ const config = require('./config/index')
 const loaders = require('./loaders/index')
 
 //////Routes//////
-const { ProjectRoutes } = require('./routes/index')
+const { ProjectRoutes, UserRoutes } = require('./routes/index')
 
 //Tum yapilandirilmalarin calistirilmasi
 config()
@@ -19,6 +19,7 @@ app.use(helmet())
 
 //////Routes//////
 app.use('/projects', ProjectRoutes)
+app.use('/users', UserRoutes)
 
 
 module.exports = app

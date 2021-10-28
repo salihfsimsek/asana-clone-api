@@ -1,2 +1,11 @@
 {"level":"info","message":{"_id":"6179ae6fbae307b0d9f2727a","createdAt":"2021-10-27T19:54:23.686Z","name":"Joi test project","updatedAt":"2021-10-27T19:54:23.686Z"},"service":"user-service"}
 {"level":"info","message":{"_id":"6179aeb42b97f509bb3b4fdd","createdAt":"2021-10-27T19:55:32.012Z","name":"Joi test project","updatedAt":"2021-10-27T19:55:32.012Z"},"service":"project-service"}
+{"level":"info","message":{"_id":"617afaaa47a278eba7dc003a","createdAt":"2021-10-28T19:31:54.581Z","updatedAt":"2021-10-28T19:31:54.581Z"},"service":"project-service"}
+{"level":"info","message":{"_id":"617afbe003a27074360a624f","createdAt":"2021-10-28T19:37:04.977Z","updatedAt":"2021-10-28T19:37:04.977Z"},"service":"project-service"}
+{"level":"info","message":{"_id":"617afbee03a27074360a6251","createdAt":"2021-10-28T19:37:18.532Z","updatedAt":"2021-10-28T19:37:18.532Z"},"service":"project-service"}
+{"level":"info","message":{"_id":"617afc229a887560dc7d3b96","createdAt":"2021-10-28T19:38:10.401Z","updatedAt":"2021-10-28T19:38:10.401Z"},"service":"project-service"}
+{"level":"info","message":{"_id":"617afc4e55c22735dd4dd5a2","createdAt":"2021-10-28T19:38:54.296Z","updatedAt":"2021-10-28T19:38:54.296Z"},"service":"project-service"}
+{"level":"info","message":{"_id":"617afc65e9e45fb3afb1dd1c","createdAt":"2021-10-28T19:39:17.350Z","updatedAt":"2021-10-28T19:39:17.350Z"},"service":"project-service"}
+{"level":"info","message":{"_id":"617afd0b6e3100217e3bdc8b","createdAt":"2021-10-28T19:42:03.596Z","updatedAt":"2021-10-28T19:42:03.596Z"},"service":"project-service"}
+{"level":"info","message":{"_id":"617afd482254c47c45732e2b","createdAt":"2021-10-28T19:43:04.881Z","updatedAt":"2021-10-28T19:43:04.881Z"},"service":"project-service"}
+{"level":"info","message":{"_id":"617afd4b2254c47c45732e2d","createdAt":"2021-10-28T19:43:07.096Z","updatedAt":"2021-10-28T19:43:07.096Z"},"service":"project-service"}

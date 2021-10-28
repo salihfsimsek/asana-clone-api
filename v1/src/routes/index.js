@@ -1,3 +1,3 @@
 const ProjectRoutes = require('./projects')
-
-module.exports = { ProjectRoutes }
+const UserRoutes = require('./users')
+module.exports = { ProjectRoutes, UserRoutes }

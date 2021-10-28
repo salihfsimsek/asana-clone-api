@@ -9,7 +9,7 @@ const validate = (schema) => (req, res, next) => {
         res.status(httpStatus.BAD_REQUEST).send({ error: errorMessage })
         return
     }
-
+    console.log(value)
     Object.assign(req, value)
     return next()
 }

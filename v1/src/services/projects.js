@@ -1,7 +1,7 @@
 const ProjectModel = require('../models/projects')
 
-const insert = (projectData) => {
-    return ProjectModel.create(projectData)
+const insert = (data) => {
+    return ProjectModel.create(data)
 }
 
 const list = () => {
