@@ -1,7 +1,7 @@
 const { insert, list, loginUser } = require('../services/users')
 const httpStatus = require('http-status')
 
-const { passwordToHash } = require('../scripts/utils/helper')
+const { passwordToHash, generateAccessToken, generateRefreshToken } = require('../scripts/utils/helper')
 
 const create = async (req, res) => {
 
@@ -17,10 +17,17 @@ const create = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        const result = await loginUser({ email: req.body.email })
+        req.body.password = passwordToHash(req.body.password)
+        let result = await loginUser(req.body)
         if (!result) return res.status(httpStatus.NOT_FOUND).send({ message: 'User not found' })
+        result = {
+            ...result.toObject(),
+            access_token: generateAccessToken({ email: result.email, _id: result._id }),
+            refresh_token: generateRefreshToken({ email: result.email, _id: result._id })
+        }
         res.status((httpStatus.OK)).send(result)
     } catch (err) {
+        console.log(err)
         res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err)
     }
 }
