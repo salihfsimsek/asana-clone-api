@@ -1,5 +1,7 @@
-const { insert, list, loginUser } = require('../services/users')
 const httpStatus = require('http-status')
+
+const { insert, list, loginUser } = require('../services/users')
+const projectService = require('../services/projects')
 
 const { passwordToHash, generateAccessToken, generateRefreshToken } = require('../scripts/utils/helper')
 
@@ -41,4 +43,13 @@ const index = async (req, res) => {
     }
 }
 
-module.exports = { create, index, login }
+const projectList = async (req, res) => {
+    try {
+        const usersProjects = await projectService.list({ user_id: req.user })
+        res.status(httpStatus.OK).send(usersProjects)
+    } catch (err) {
+        res.status(httpStatus.BAD_REQUEST).send(err)
+    }
+}
+
+module.exports = { create, index, login, projectList }

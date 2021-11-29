@@ -4,8 +4,15 @@ const insert = (data) => {
     return ProjectModel.create(data)
 }
 
-const list = () => {
-    return ProjectModel.find()
+const list = (where) => {
+    return ProjectModel.find(where || {}).populate({
+        path: 'user_id',
+        select: 'full_name email'
+    })
 }
 
-module.exports = { insert, list }
+const modify = (id, data) => {
+    return ProjectModel.findOneAndUpdate({ _id: id }, data, { new: true })
+}
+
+module.exports = { insert, list, modify }

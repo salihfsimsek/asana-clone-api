@@ -9,3 +9,10 @@
 {"level":"info","message":{"_id":"617afd0b6e3100217e3bdc8b","createdAt":"2021-10-28T19:42:03.596Z","updatedAt":"2021-10-28T19:42:03.596Z"},"service":"project-service"}
 {"level":"info","message":{"_id":"617afd482254c47c45732e2b","createdAt":"2021-10-28T19:43:04.881Z","updatedAt":"2021-10-28T19:43:04.881Z"},"service":"project-service"}
 {"level":"info","message":{"_id":"617afd4b2254c47c45732e2d","createdAt":"2021-10-28T19:43:07.096Z","updatedAt":"2021-10-28T19:43:07.096Z"},"service":"project-service"}
+{"level":"info","message":{"_id":"61a3e777ab52e3ef7488a953","createdAt":"2021-11-28T20:32:55.253Z","name":"Test Projesi","updatedAt":"2021-11-28T20:32:55.253Z"},"service":"project-service"}
+{"level":"info","message":{"_id":"61a3e77dab52e3ef7488a955","createdAt":"2021-11-28T20:33:01.600Z","name":"Test Projesi 1","updatedAt":"2021-11-28T20:33:01.600Z"},"service":"project-service"}
+{"level":"info","message":{"_id":"61a3e782ab52e3ef7488a957","createdAt":"2021-11-28T20:33:06.568Z","name":"Test Projesi 2","updatedAt":"2021-11-28T20:33:06.568Z"},"service":"project-service"}
+{"level":"info","message":{"_id":"61a3e7aa9067e455eb8ab4ab","createdAt":"2021-11-28T20:33:46.755Z","name":"Test Projesi 2","updatedAt":"2021-11-28T20:33:46.755Z"},"service":"project-service"}
+{"level":"info","message":{"_id":"61a3e7d6bd620ddc4098c6be","createdAt":"2021-11-28T20:34:30.077Z","name":"Test Projesi 2","updatedAt":"2021-11-28T20:34:30.077Z","user_id":"61a3e63cf9842a00fe1d7fdd"},"service":"project-service"}
+{"level":"info","message":{"_id":"61a501ccefdf454755bc2595","createdAt":"2021-11-29T16:37:32.397Z","name":"Test Projesi 2","updatedAt":"2021-11-29T16:37:32.397Z","user_id":"61a501bdefdf454755bc2592"},"service":"project-service"}
+{"level":"info","message":{"_id":"61a525a8adf3d20c397fdb9c","createdAt":"2021-11-29T19:10:32.213Z","name":"Test Projesi 2","updatedAt":"2021-11-29T19:10:32.213Z","user_id":"61a501bdefdf454755bc2592"},"service":"project-service"}

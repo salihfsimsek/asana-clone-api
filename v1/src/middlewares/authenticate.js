@@ -2,7 +2,7 @@ const httpStatus = require('http-status')
 const jwt = require('jsonwebtoken')
 const authenticateToken = (req, res, next) => {
     const authHeader = req.header('Authorization')
-    let token = authHeader && fauthHeader.split(' ')[1]
+    let token = authHeader && authHeader.split(' ')[1]
     if (token === null)
         return res.status(httpStatus.UNAUTHORIZED).send({ message: 'You have no permission to do this' })
 

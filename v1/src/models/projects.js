@@ -4,10 +4,10 @@ const logger = require('../scripts/logger/projects')
 
 const ProjectSchema = mongoose.Schema({
     name: String,
-    // user_id: {
-    //     type: mongoose.SchemaTypes.ObjectId,
-    //     ref: 'user'
-    // },
+    user_id: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'User'
+    },
 }, { timestamps: true, versionKey: false })
 
 // ProjectSchema.pre('save', (next) => {

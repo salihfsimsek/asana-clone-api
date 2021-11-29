@@ -1,7 +1,9 @@
-const { insert, list } = require('../services/projects')
+const { insert, list, modify } = require('../services/projects')
 const httpStatus = require('http-status')
+
 const create = async (req, res) => {
     try {
+        req.body.user_id = req.user
         const createdProject = await insert(req.body)
         res.status(httpStatus.CREATED).send(createdProject)
     } catch (err) {
@@ -19,4 +21,16 @@ const index = async (req, res) => {
     }
 }
 
-module.exports = { create, index }
+const update = async (req, res) => {
+    if (!req.params.id)
+        return res.status(httpStatus.BAD_REQUEST).send({ message: 'Not valid project id' })
+
+    try {
+        const updatedProject = await modify(req.params.id, req.body)
+        res.status(httpStatus.OK).send(updatedProject)
+    } catch (err) {
+        res.status(httpStatus.BAD_REQUEST).send(err)
+    }
+}
+
+module.exports = { create, index, update }

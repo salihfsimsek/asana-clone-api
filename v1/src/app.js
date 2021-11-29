@@ -18,8 +18,8 @@ app.use(express.json())
 app.use(helmet())
 
 //////Routes//////
-app.use('/projects', ProjectRoutes)
-app.use('/users', UserRoutes)
+app.use('/api/projects', ProjectRoutes)
+app.use('/api/users', UserRoutes)
 
 
 module.exports = app
