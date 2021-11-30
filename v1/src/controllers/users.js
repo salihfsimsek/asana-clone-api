@@ -1,6 +1,9 @@
 const httpStatus = require('http-status')
+const uuid = require('uuid')
 
-const { insert, list, loginUser } = require('../services/users')
+const eventEmitter = require('../scripts/events/eventEmitter')
+
+const { insert, list, loginUser, modify } = require('../services/users')
 const projectService = require('../services/projects')
 
 const { passwordToHash, generateAccessToken, generateRefreshToken } = require('../scripts/utils/helper')
@@ -52,4 +55,23 @@ const projectList = async (req, res) => {
     }
 }
 
-module.exports = { create, index, login, projectList }
+const resetPassword = async (req, res) => {
+
+    const newPassword = uuid.v4().split('-')[0] || `usr-${new Date().getTime()}`
+    try {
+        const updatedUser = await modify({ email: req.body.email }, { password: passwordToHash(newPassword) })
+        if (!updatedUser) return res.status(httpStatus.NOT_FOUND).send({ error: "User not found" })
+        eventEmitter.emit('send_email', {
+            to: updatedUser.email,
+            subject: 'Şifre Sıfırlama',
+            html: `Şifre sıfırlama işleminiz gerçekleştirilmiştir. <br/> Giriş yaptıktan sonra şifrenizi sıfırlamayı unutmayın. <br/> Yeni şifreniz: ${newPassword}`
+        })
+        res.status(httpStatus.OK).send({ 
+            'message': "Şifre sıfırlama işlemi için sisteme kayıtlı email adresine mail gönderilmiştir"
+        })
+    } catch (err) {
+        res.status(httpStatus.BAD_REQUEST).send(err)
+    }
+}
+
+module.exports = { create, index, login, projectList, resetPassword }

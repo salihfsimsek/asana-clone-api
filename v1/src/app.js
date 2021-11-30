@@ -2,6 +2,7 @@ const express = require('express');
 const helmet = require('helmet')
 const config = require('./config/index')
 const loaders = require('./loaders/index')
+const events = require('./scripts/events')
 
 //////Routes//////
 const { ProjectRoutes, UserRoutes } = require('./routes/index')
@@ -11,6 +12,8 @@ config()
 
 //Tum loaderlarin tek noktadan calistirilmasi
 loaders()
+
+events()
 
 const app = express()
 

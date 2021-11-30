@@ -7,8 +7,6 @@ const passwordToHash = (password) => {
 }
 
 const generateAccessToken = (user) => {
-    console.log('----------------------------')
-    console.log(user)
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET_KEY, { expiresIn: '1w' })
 }
 

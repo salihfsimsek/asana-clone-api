@@ -12,4 +12,8 @@ const list = () => {
     return UserModel.find()
 }
 
-module.exports = { insert, list, loginUser }
+const modify = (where, data) => {
+    return UserModel.findOneAndUpdate(where, data, { new: true })
+}
+
+module.exports = { insert, list, loginUser, modify }
