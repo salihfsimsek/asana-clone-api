@@ -66,7 +66,7 @@ const resetPassword = async (req, res) => {
             subject: 'Şifre Sıfırlama',
             html: `Şifre sıfırlama işleminiz gerçekleştirilmiştir. <br/> Giriş yaptıktan sonra şifrenizi sıfırlamayı unutmayın. <br/> Yeni şifreniz: ${newPassword}`
         })
-        res.status(httpStatus.OK).send({ 
+        res.status(httpStatus.OK).send({
             'message': "Şifre sıfırlama işlemi için sisteme kayıtlı email adresine mail gönderilmiştir"
         })
     } catch (err) {
@@ -74,4 +74,13 @@ const resetPassword = async (req, res) => {
     }
 }
 
-module.exports = { create, index, login, projectList, resetPassword }
+const update = async (req, res) => {
+    try {
+        const updatedUser = await modify({ _id: req.user._id }, req.body)
+        res.status(200).send(updatedUser)
+    } catch (err) {
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ err: 'An error occured while updating' })
+    }
+}
+
+module.exports = { create, index, login, projectList, resetPassword, update }
