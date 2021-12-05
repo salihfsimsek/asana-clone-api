@@ -15,4 +15,8 @@ const modify = (id, data) => {
     return ProjectModel.findOneAndUpdate({ _id: id }, data, { new: true })
 }
 
-module.exports = { insert, list, modify }
+const remove = (item) => {
+    return ProjectModel.deleteOne(item)
+}
+
+module.exports = { insert, list, modify, remove }

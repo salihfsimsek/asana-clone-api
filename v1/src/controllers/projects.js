@@ -1,4 +1,4 @@
-const { insert, list, modify } = require('../services/projects')
+const { insert, list, modify, remove } = require('../services/projects')
 const httpStatus = require('http-status')
 
 const create = async (req, res) => {
@@ -33,4 +33,13 @@ const update = async (req, res) => {
     }
 }
 
-module.exports = { create, index, update }
+const deleteProject = async (req, res) => {
+    try {
+        await remove({ _id: req.params.id })
+        res.status(httpStatus.OK).send({ message: "Succesfully deleted" })
+    } catch (err) {
+        res.status(httpStatus.BAD_REQUEST).send(err)
+    }
+}
+
+module.exports = { create, index, update, deleteProject }
