@@ -3,7 +3,7 @@ const uuid = require('uuid')
 
 const eventEmitter = require('../scripts/events/eventEmitter')
 
-const { insert, list, loginUser, modify } = require('../services/users')
+const { insert, list, loginUser, modify, remove } = require('../services/users')
 const projectService = require('../services/projects')
 
 const { passwordToHash, generateAccessToken, generateRefreshToken } = require('../scripts/utils/helper')
@@ -83,4 +83,16 @@ const update = async (req, res) => {
     }
 }
 
-module.exports = { create, index, login, projectList, resetPassword, update }
+const deleteUser = async (req, res) => {
+    try {
+        const deletedUser = await remove({ _id: req.params.id })
+        if (!deletedUser) {
+            return res.status(httpStatus.NOT_FOUND).send({ message: "User not found" })
+        }
+        res.status(httpStatus.OK).send({ err: 'User deleted' })
+    } catch (err) {
+        res.status(httpStatus.BAD_REQUEST).send(err)
+    }
+}
+
+module.exports = { create, index, login, projectList, resetPassword, update, deleteUser }

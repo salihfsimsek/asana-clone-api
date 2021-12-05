@@ -35,7 +35,10 @@ const update = async (req, res) => {
 
 const deleteProject = async (req, res) => {
     try {
-        await remove({ _id: req.params.id })
+        const deletedProject = await remove({ _id: req.params.id })
+        if (!deletedProject) {
+            return res.status(httpStatus.NOT_FOUND).send({ message: 'Project not found' })
+        }
         res.status(httpStatus.OK).send({ message: "Succesfully deleted" })
     } catch (err) {
         res.status(httpStatus.BAD_REQUEST).send(err)
