@@ -95,4 +95,14 @@ const deleteUser = async (req, res) => {
     }
 }
 
-module.exports = { create, index, login, projectList, resetPassword, update, deleteUser }
+const changePassword = async (req, res) => {
+    req.body.password = passwordToHash(req.body.password)
+    try {
+        const updatedUser = await modify({ _id: req.user._id }, req.body)
+        res.status(200).send(updatedUser)
+    } catch (err) {
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ err: 'An error occured while updating' })
+    }
+}
+
+module.exports = { create, index, login, projectList, resetPassword, update, deleteUser, changePassword }

@@ -15,10 +15,10 @@ const list = () => {
 const modify = (where, data) => {
     //Gelen data uzerinden bilgileri filtrelemek. Bu islem zaten joi tarafindan yapiliyor.
     //Ogrenme amacli yazilmistir.
-    const updateData = Object.keys(data).reduce((obj, key) => {
-        if (key !== 'password') obj[key] = data[key]
-        return obj
-    })
+    // const updateData = Object.keys(data).reduce((obj, key) => {
+    //     if (key !== 'password') obj[key] = data[key]
+    //     return obj
+    // })
     return UserModel.findOneAndUpdate(where, data, { new: true })
 }
 
