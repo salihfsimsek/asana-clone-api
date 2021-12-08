@@ -7,7 +7,7 @@ const authenticate = require('../middlewares/authenticate')
 
 const router = require('express').Router()
 
-const { create, index, login, projectList, resetPassword, update, deleteUser, changePassword } = require('../controllers/users')
+const { create, index, login, projectList, resetPassword, update, deleteUser, changePassword, updateProfileImage } = require('../controllers/users')
 
 router.get('/', index)
 
@@ -21,7 +21,9 @@ router.get('/projects', authenticate, projectList)
 
 router.post('/reset-password', validate(schemas.resetPasswordValidation), resetPassword)
 
-router.put('/change-password', authenticate, validate(schemas.changePasswordValidation), changePassword)
+router.patch('/change-password', authenticate, validate(schemas.changePasswordValidation), changePassword)
+
+router.post('/update-profile-image', authenticate, updateProfileImage)
 
 router.delete('/:id', authenticate, deleteUser)
 

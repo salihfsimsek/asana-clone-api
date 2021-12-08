@@ -2,6 +2,7 @@ const httpStatus = require('http-status')
 const uuid = require('uuid')
 
 const eventEmitter = require('../scripts/events/eventEmitter')
+const path = require('path')
 
 const { insert, list, loginUser, modify, remove } = require('../services/users')
 const projectService = require('../services/projects')
@@ -105,4 +106,22 @@ const changePassword = async (req, res) => {
     }
 }
 
-module.exports = { create, index, login, projectList, resetPassword, update, deleteUser, changePassword }
+const updateProfileImage = async (req, res) => {
+    if (!req?.files?.profile_image) {
+        return res.status(httpStatus.BAD_REQUEST).send({ message: 'Please upload an image' })
+    }
+    const extension = path.extname(req.files.profile_image.name)
+    const fileName = `${req?.user?._id}${extension}`
+    const folderPath = path.join(__dirname, '../uploads/users', fileName)
+    req.files.profile_image.mv(folderPath, async function (err) {
+        if (err) return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err)
+        try {
+            const updatedUser = await modify({ _id: req.user._id }, { profile_image: fileName })
+            res.status(httpStatus.OK).send(updatedUser)
+        } catch (err) {
+            res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ message: 'An error occured' })
+        }
+    })
+}
+
+module.exports = { create, index, login, projectList, resetPassword, update, deleteUser, changePassword, updateProfileImage }
