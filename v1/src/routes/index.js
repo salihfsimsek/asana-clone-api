@@ -1,3 +1,4 @@
 const ProjectRoutes = require('./projects')
 const UserRoutes = require('./users')
-module.exports = { ProjectRoutes, UserRoutes }
+const SectionRoutes = require('./sections')
+module.exports = { ProjectRoutes, UserRoutes, SectionRoutes }

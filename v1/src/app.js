@@ -7,7 +7,7 @@ const events = require('./scripts/events')
 const path = require('path')
 
 //////Routes//////
-const { ProjectRoutes, UserRoutes } = require('./routes/index')
+const { ProjectRoutes, UserRoutes, SectionRoutes } = require('./routes/index')
 
 //Tum yapilandirilmalarin calistirilmasi
 config()
@@ -26,6 +26,7 @@ app.use('/uploads/', express.static(path.join(__dirname, './uploads')))
 //////Routes//////
 app.use('/api/projects', ProjectRoutes)
 app.use('/api/users', UserRoutes)
+app.use('/api/sections', SectionRoutes)
 
 
 module.exports = app
