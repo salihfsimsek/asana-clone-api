@@ -19,7 +19,7 @@ const SectionSchema = mongoose.Schema({
     }
 }, { timestamps: true, versionKey: false })
 
-ProjectSchema.post('save', doc => {
+SectionSchema.post('save', doc => {
     logger.log({
         level: 'info',
         message: doc
