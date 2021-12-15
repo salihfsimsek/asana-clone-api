@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const logger = require('./scripts/logger/tasks')
+const logger = require('../scripts/logger/tasks')
 
 const TaskSchema = mongoose.Schema({
     title: {
@@ -43,7 +43,7 @@ const TaskSchema = mongoose.Schema({
     }]
 }, { timestamps: true, versionKey: false })
 
-TaskSchema.post('save', () => {
+TaskSchema.post('save', (doc) => {
     logger.log({
         level: 'info',
         message: doc
