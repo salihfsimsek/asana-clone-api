@@ -1,10 +1,10 @@
-const { insert, list, modify, remove } = require('../services/projects')
+const ProjectService = require('../services/projects')
 const httpStatus = require('http-status')
 
 const create = async (req, res) => {
     try {
         req.body.user_id = req.user
-        const createdProject = await insert(req.body)
+        const createdProject = await ProjectService.create(req.body)
         res.status(httpStatus.CREATED).send(createdProject)
     } catch (err) {
         console.log(err)
@@ -14,7 +14,7 @@ const create = async (req, res) => {
 
 const index = async (req, res) => {
     try {
-        const projects = await list()
+        const projects = await ProjectService.list()
         res.status(httpStatus.OK).send(projects)
     } catch (err) {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message)
@@ -26,7 +26,7 @@ const update = async (req, res) => {
         return res.status(httpStatus.BAD_REQUEST).send({ message: 'Not valid project id' })
 
     try {
-        const updatedProject = await modify(req.params.id, req.body)
+        const updatedProject = await ProjectService.update(req.params.id, req.body)
         res.status(httpStatus.OK).send(updatedProject)
     } catch (err) {
         res.status(httpStatus.BAD_REQUEST).send(err)
@@ -35,7 +35,7 @@ const update = async (req, res) => {
 
 const deleteProject = async (req, res) => {
     try {
-        const deletedProject = await remove({ _id: req.params.id })
+        const deletedProject = await ProjectService.delete({ _id: req.params.id })
         if (!deletedProject) {
             return res.status(httpStatus.NOT_FOUND).send({ message: 'Project not found' })
         }

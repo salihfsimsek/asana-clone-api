@@ -29,7 +29,6 @@ const list = (where) => {
 }
 
 const modify = (id, data) => {
-    console.log(data)
     return TaskModel.findOneAndUpdate({ _id: id }, data, { new: true })
 }
 

@@ -1,22 +1,15 @@
+const BaseService = require('./BaseService')
 const ProjectModel = require('../models/projects')
 
-const insert = (data) => {
-    return ProjectModel.create(data)
+class Project extends BaseService {
+    model = ProjectModel
+
+    async list(where) {
+        return this.model.find(where || {}).populate({
+            path: 'user_id',
+            select: 'full_name email profile_image'
+        })
+    }
 }
 
-const list = (where) => {
-    return ProjectModel.find(where || {}).populate({
-        path: 'user_id',
-        select: 'full_name email profile_image'
-    })
-}
-
-const modify = (id, data) => {
-    return ProjectModel.findOneAndUpdate({ _id: id }, data, { new: true })
-}
-
-const remove = (item) => {
-    return ProjectModel.deleteOne(item)
-}
-
-module.exports = { insert, list, modify, remove }
+module.exports = new Project()

@@ -19,3 +19,5 @@
 {"level":"info","message":{"_id":"61b79a47480f0b2f22914979","createdAt":"2021-12-13T19:08:55.211Z","name":"Test Projesi 2","updatedAt":"2021-12-13T19:08:55.211Z","user_id":"61b799fd480f0b2f22914974"},"service":"project-service"}
 {"level":"info","message":{"_id":"61b79bb092f80dd99097e50e","createdAt":"2021-12-13T19:14:56.301Z","name":"Test Projesi 1","updatedAt":"2021-12-13T19:14:56.301Z","user_id":"61b799fd480f0b2f22914974"},"service":"project-service"}
 {"level":"info","message":{"_id":"61b79bb392f80dd99097e510","createdAt":"2021-12-13T19:14:59.641Z","name":"Test Projesi 0","updatedAt":"2021-12-13T19:14:59.641Z","user_id":"61b799fd480f0b2f22914974"},"service":"project-service"}
+{"level":"info","message":{"_id":"61cf2d1bd7b1d6703671c9a3","createdAt":"2021-12-31T16:17:31.093Z","name":"Test Projesi 2","updatedAt":"2021-12-31T16:17:31.093Z","user_id":"61ba418c7400c41ad54fa815"},"service":"project-service"}
+{"level":"info","message":{"_id":"61cf2dae6c201361820be98a","createdAt":"2021-12-31T16:19:58.321Z","name":"Test Projesi 5","updatedAt":"2021-12-31T16:19:58.321Z","user_id":"61ba418c7400c41ad54fa815"},"service":"project-service"}
