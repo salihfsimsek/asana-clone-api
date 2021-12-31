@@ -55,4 +55,31 @@ const deleteComment = async (req, res) => {
     }
 }
 
-module.exports = { create, update, deleteTask, makeComment, deleteComment }
+const addSubTask = async (req, res) => {
+    if (!req.params.id) return res.status(httpStatus.BAD_REQUEST).send({ message: 'ID not found' })
+    req.body.user_id = req.user._id
+    try {
+        const mainTask = await findOne({ _id: req.params.id })
+        const newSubTask = await insert(req.body)
+        mainTask.sub_tasks.push(newSubTask)
+        await mainTask.save()
+        res.status(httpStatus.CREATED).send(mainTask)
+
+    } catch (err) {
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ message: err.message })
+    }
+}
+
+const fetchTask = async (req, res) => {
+    if (!req.params.id) return res.status(httpStatus.BAD_REQUEST).send({ message: 'ID not found' })
+
+    try {
+        const task = await findOne({ _id: req.params.id }, true)
+        if (!task) return res.status(httpStatus.NOT_FOUND).send({ message: 'Task not found' })
+        res.status(httpStatus.OK).send(task)
+    } catch (err) {
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ message: err.message })
+    }
+}
+
+module.exports = { create, update, deleteTask, makeComment, deleteComment, addSubTask, fetchTask }

@@ -5,12 +5,14 @@ const authenticate = require('../middlewares/authenticate')
 //Validations
 const schemas = require('../validations/tasks')
 const router = require('express').Router()
-const { create, update, deleteTask, makeComment, deleteComment } = require('../controllers/tasks')
+const { create, update, deleteTask, makeComment, deleteComment, addSubTask, fetchTask } = require('../controllers/tasks')
 
 
 router.post('/', authenticate, validate(schemas.createValidation), create)
 router.patch('/:id', authenticate, validate(schemas.updateValidation), update)
+router.get('/:id', authenticate, fetchTask)
 router.post('/:id/make-comment', authenticate, validate(schemas.commentValidation), makeComment)
+router.post('/:id/add-sub-task', authenticate, validate(schemas.createValidation), addSubTask)
 router.delete('/:id/:commentId', authenticate, deleteComment)
 router.delete(authenticate, deleteTask)
 

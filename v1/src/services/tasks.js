@@ -1,7 +1,17 @@
 const TaskModel = require('../models/tasks')
 
-const findOne = (where) => {
-    return TaskModel.findOne(where)
+const findOne = (where, expand) => {
+    if (!expand) return TaskModel.findOne(where)
+    else return TaskModel.findOne(where)
+        .populate({ path: 'user_id', select: 'full_name email profile_image' })
+        .populate({
+            path: 'comments',
+            populate: {
+                path: 'user_id',
+                select: 'full_name email profile_image',
+            }
+        })
+        .populate({ path: 'sub_tasks', select: 'title description isCompleted assing_to due_date order sub_tasks statuses' })
 }
 
 const insert = (data) => {
