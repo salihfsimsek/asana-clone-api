@@ -7,12 +7,12 @@ class BaseService {
         return this.model.create(data)
     }
 
-    async read(where) {
-
+    async findOne(where) {
+        return this.model.findOne({ where })
     }
 
-    async update(id, data) {
-        return this.model.findOneAndUpdate({ _id: id }, data, { new: true })
+    async update(item, data) {
+        return this.model.findOneAndUpdate(item, data, { new: true })
     }
 
     async delete(item) {

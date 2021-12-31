@@ -11,6 +11,6 @@ const { index, create, update, deleteSection } = require('../controllers/section
 router.get('/:projectId', authenticate, index)
 router.post('/', authenticate, validate(schemas.createValidation), create)
 router.patch('/:id', authenticate, validate(schemas.updateValidation), update)
-router.delete(authenticate, deleteSection)
+router.delete('/:id', authenticate, deleteSection)
 
 module.exports = router

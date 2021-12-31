@@ -4,8 +4,8 @@ const uuid = require('uuid')
 const eventEmitter = require('../scripts/events/eventEmitter')
 const path = require('path')
 
-const { insert, list, loginUser, modify, remove } = require('../services/users')
-const projectService = require('../services/projects')
+const UserService = require('../services/users')
+const ProjectService = require('../services/projects')
 
 const { passwordToHash, generateAccessToken, generateRefreshToken } = require('../scripts/utils/helper')
 
@@ -14,7 +14,7 @@ const create = async (req, res) => {
     req.body.password = passwordToHash(req.body.password)
 
     try {
-        const createdUser = await insert(req.body)
+        const createdUser = await UserService.create(req.body)
         res.status(httpStatus.CREATED).send(createdUser)
     } catch (err) {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message)
@@ -24,7 +24,7 @@ const create = async (req, res) => {
 const login = async (req, res) => {
     try {
         req.body.password = passwordToHash(req.body.password)
-        let result = await loginUser(req.body)
+        let result = await UserService.loginUser(req.body)
         if (!result) return res.status(httpStatus.NOT_FOUND).send({ message: 'User not found' })
         result = {
             ...result.toObject(),
@@ -40,7 +40,7 @@ const login = async (req, res) => {
 
 const index = async (req, res) => {
     try {
-        const users = await list()
+        const users = await UserService.list()
         res.status(httpStatus.OK).send(users)
     } catch (err) {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message)
@@ -49,7 +49,7 @@ const index = async (req, res) => {
 
 const projectList = async (req, res) => {
     try {
-        const usersProjects = await projectService.list({ user_id: req.user })
+        const usersProjects = await ProjectService.list({ user_id: req.user })
         res.status(httpStatus.OK).send(usersProjects)
     } catch (err) {
         res.status(httpStatus.BAD_REQUEST).send(err)
@@ -60,7 +60,7 @@ const resetPassword = async (req, res) => {
 
     const newPassword = uuid.v4().split('-')[0] || `usr-${new Date().getTime()}`
     try {
-        const updatedUser = await modify({ email: req.body.email }, { password: passwordToHash(newPassword) })
+        const updatedUser = await UserService.update({ email: req.body.email }, { password: passwordToHash(newPassword) })
         if (!updatedUser) return res.status(httpStatus.NOT_FOUND).send({ error: "User not found" })
         eventEmitter.emit('send_email', {
             to: updatedUser.email,
@@ -77,7 +77,7 @@ const resetPassword = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        const updatedUser = await modify({ _id: req.user._id }, req.body)
+        const updatedUser = await UserService.update({ _id: req.user._id }, req.body)
         res.status(200).send(updatedUser)
     } catch (err) {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ err: 'An error occured while updating' })
@@ -86,7 +86,7 @@ const update = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {
-        const deletedUser = await remove({ _id: req.params.id })
+        const deletedUser = await UserService.delete({ _id: req.params.id })
         if (!deletedUser) {
             return res.status(httpStatus.NOT_FOUND).send({ message: "User not found" })
         }
@@ -99,7 +99,7 @@ const deleteUser = async (req, res) => {
 const changePassword = async (req, res) => {
     req.body.password = passwordToHash(req.body.password)
     try {
-        const updatedUser = await modify({ _id: req.user._id }, req.body)
+        const updatedUser = await UserService.update({ _id: req.user._id }, req.body)
         res.status(200).send(updatedUser)
     } catch (err) {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ err: 'An error occured while updating' })
@@ -116,7 +116,7 @@ const updateProfileImage = async (req, res) => {
     req.files.profile_image.mv(folderPath, async function (err) {
         if (err) return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err)
         try {
-            const updatedUser = await modify({ _id: req.user._id }, { profile_image: fileName })
+            const updatedUser = await UserService.update({ _id: req.user._id }, { profile_image: fileName })
             res.status(httpStatus.OK).send(updatedUser)
         } catch (err) {
             res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ message: 'An error occured' })

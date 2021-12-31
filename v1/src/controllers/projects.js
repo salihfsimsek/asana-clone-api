@@ -26,7 +26,7 @@ const update = async (req, res) => {
         return res.status(httpStatus.BAD_REQUEST).send({ message: 'Not valid project id' })
 
     try {
-        const updatedProject = await ProjectService.update(req.params.id, req.body)
+        const updatedProject = await ProjectService.update({ _id: req.params.id }, req.body)
         res.status(httpStatus.OK).send(updatedProject)
     } catch (err) {
         res.status(httpStatus.BAD_REQUEST).send(err)
