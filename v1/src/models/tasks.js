@@ -28,9 +28,11 @@ const TaskSchema = mongoose.Schema({
     order: Number,
     isCompleted: Boolean,
     comments: [{
-        value: String,
-        created_at: Date,
-        updated_at: Date,
+        comment: String,
+        commented_at: {
+            type: Date,
+            default: new Date()
+        },
         user_id: {
             type: mongoose.SchemaTypes.ObjectId,
             ref: 'User'

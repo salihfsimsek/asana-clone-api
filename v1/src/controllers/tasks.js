@@ -1,4 +1,4 @@
-const { insert, modify, list, remove } = require('../services/tasks')
+const { findOne, insert, modify, list, remove } = require('../services/tasks')
 const httpStatus = require('http-status')
 
 
@@ -33,4 +33,26 @@ const deleteTask = async (req, res) => {
     }
 }
 
-module.exports = { create, update, deleteTask }
+const makeComment = async (req, res) => {
+    req.body.user_id = req.user
+    try {
+        const currentTask = await findOne({ _id: req.params.id })
+        currentTask.comments.push(req.body)
+        const updatedTask = await currentTask.save()
+        res.status(200).send(updatedTask)
+    } catch (err) {
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err)
+    }
+}
+
+const deleteComment = async (req, res) => {
+    try {
+        const updatedTask = await modify(req.params.id, { $pull: { comments: { _id: req.params.commentId } } })
+        res.status(200).send(updatedTask)
+    } catch (err) {
+        console.log(err)
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err)
+    }
+}
+
+module.exports = { create, update, deleteTask, makeComment, deleteComment }
