@@ -1,6 +1,8 @@
 const ProjectService = require('../services/projects')
 const httpStatus = require('http-status')
 
+const ApiError = require('../errors/apiError')
+
 const create = async (req, res) => {
     try {
         req.body.user_id = req.user
@@ -21,15 +23,17 @@ const index = async (req, res) => {
     }
 }
 
-const update = async (req, res) => {
+const update = async (req, res, next) => {
     if (!req.params.id)
         return res.status(httpStatus.BAD_REQUEST).send({ message: 'Not valid project id' })
 
     try {
         const updatedProject = await ProjectService.update({ _id: req.params.id }, req.body)
+        if (!updatedProject)
+            return next(new ApiError('Project not found', 404))
         res.status(httpStatus.OK).send(updatedProject)
     } catch (err) {
-        res.status(httpStatus.BAD_REQUEST).send(err)
+        next(new ApiError(e?.message))
     }
 }
 

@@ -4,6 +4,7 @@ const schemas = require('../validations/users')
 //Validate middleware
 const validate = require('../middlewares/validate')
 const authenticate = require('../middlewares/authenticate')
+const idChecker = require('../middlewares/idChecker')
 
 const router = require('express').Router()
 
@@ -25,7 +26,7 @@ router.patch('/change-password', authenticate, validate(schemas.changePasswordVa
 
 router.post('/update-profile-image', authenticate, updateProfileImage)
 
-router.delete('/:id', authenticate, deleteUser)
+router.delete('/:id', idChecker('id'), authenticate, deleteUser)
 
 
 module.exports = router

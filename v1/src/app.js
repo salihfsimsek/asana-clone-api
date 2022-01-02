@@ -5,6 +5,7 @@ const config = require('./config/index')
 const loaders = require('./loaders/index')
 const events = require('./scripts/events')
 const path = require('path')
+const errorHandler = require('./middlewares/errorHandler')
 
 //////Routes//////
 const { ProjectRoutes, UserRoutes, SectionRoutes, TaskRoutes } = require('./routes/index')
@@ -28,6 +29,17 @@ app.use('/api/projects', ProjectRoutes)
 app.use('/api/users', UserRoutes)
 app.use('/api/sections', SectionRoutes)
 app.use('/api/tasks', TaskRoutes)
+
+app.use(async (req, res, next) => {
+    console.log('istek geldi')
+    const error = new Error('Page not found');
+    error.status = 404
+    next(error)
+
+})
+
+//Error Handler
+app.use(errorHandler)
 
 
 module.exports = app
