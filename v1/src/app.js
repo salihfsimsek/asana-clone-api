@@ -30,14 +30,6 @@ app.use('/api/users', UserRoutes)
 app.use('/api/sections', SectionRoutes)
 app.use('/api/tasks', TaskRoutes)
 
-app.use(async (req, res, next) => {
-    console.log('istek geldi')
-    const error = new Error('Page not found');
-    error.status = 404
-    next(error)
-
-})
-
 //Error Handler
 app.use(errorHandler)
 
